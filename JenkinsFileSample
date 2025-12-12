@@ -16,6 +16,11 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Running tests...'
+                sh '''
+                    ls -ltr
+                    pwd
+                    echo "hello from github webhooks"
+                '''
                 // Add your test commands here, e.g., sh 'mvn test' or sh 'make check'
                 // Optionally, publish test results, e.g., junit 'reports/**/*.xml'
                 // error 'this is failed' --> to fail it on purpose
