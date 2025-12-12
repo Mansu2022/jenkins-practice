@@ -1,0 +1,44 @@
+pipeline {
+    
+    /*  agent any    --> Specifies that the pipeline can run on any available agent    */
+    
+    agent { node { label 'AGENT-1' } }
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building the application...'
+                sh pwd
+                // Add your build commands here, e.g., sh 'mvn clean install' or sh 'make'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+                // Add your test commands here, e.g., sh 'mvn test' or sh 'make check'
+                // Optionally, publish test results, e.g., junit 'reports/**/*.xml'
+                // error 'this is failed' --> to fail it on purpose
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying the application...'
+                // Add your deployment commands here, e.g., sh 'make publish' or sh 'deploy.sh'
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'This will always run after the pipeline finishes, regardless of success or failure.'
+        }
+        success {
+            echo 'Pipeline finished successfully!'
+        }
+        failure {
+            echo 'Pipeline failed!'
+        }
+    }
+}
