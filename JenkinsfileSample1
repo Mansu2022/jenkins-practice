@@ -1,0 +1,31 @@
+pipeline {
+
+    agent { node { label 'AGENT-1' } }
+
+    stages {
+
+        stage (init) {
+
+           sh ''' terraform init '''
+
+        }
+
+        stage (plan) {
+
+            sh ''' terraform plan '''
+
+        }
+    }
+
+    post {
+        always {
+            echo 'run always'
+        }
+        success {
+            echo 'successfull'
+        }
+        failure {
+            echo "failed"
+        }
+    }
+}
